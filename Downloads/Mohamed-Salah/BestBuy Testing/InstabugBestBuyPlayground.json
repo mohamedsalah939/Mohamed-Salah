@@ -1,0 +1,437 @@
+{
+	"info": {
+		"_postman_id": "dbbbd13f-1a21-4b9d-9745-8b2e9f4c8560",
+		"name": "Best Buy API Playground",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products APIs",
+			"item": [
+				{
+					"name": "Get product",
+					"item": [
+						{
+							"name": "Get all products",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get single product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Duracell\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Your test name\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.value).to.eql(100);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products/185230",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products",
+										"185230"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get products with filter of Not specific string",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"ab\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products?type=ab",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "ab"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Add Product",
+					"item": [
+						{
+							"name": "Add new product",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Mo Salah\",\r\n    \"type\": \"sports\",\r\n    \"price\": 12.00,\r\n    \"upc\": \"123456789098\",\r\n    \"shipping\": 1,\r\n    \"description\": \"Mo Salah photo\",\r\n    \"manufacturer\": \"Liverpool\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/products",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "verify added product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products/?productID={{productID}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "productID",
+											"value": "{{productID}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete product",
+					"item": [
+						{
+							"name": "Delete product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products/{{productDelete}}?productDelete={{productDelete}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products",
+										"{{productDelete}}"
+									],
+									"query": [
+										{
+											"key": "productDelete",
+											"value": "{{productDelete}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products/{{productDelete}}?productDelete={{productDelete}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products",
+										"{{productDelete}}"
+									],
+									"query": [
+										{
+											"key": "productDelete",
+											"value": "{{productDelete}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Stores",
+			"item": [
+				{
+					"name": "Get store",
+					"item": [
+						{
+							"name": "Get all stores",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{stores}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{stores}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get store with limit and skip",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{stores}}?$limit=3&$skip=2",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{stores}}"
+									],
+									"query": [
+										{
+											"key": "$limit",
+											"value": "3"
+										},
+										{
+											"key": "$skip",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Post store",
+					"item": [
+						{
+							"name": "Add new store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"pm.test(\"Body matches string\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"hollywood\");\r",
+											"});\r",
+											"pm.test(\"Successful POST request\", function () {\r",
+											"    pm.expect(pm.response.code).to.be(201);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n            \"name\": \"Himalaya Heights\",\r\n            \"type\": \"SmallBox\",\r\n            \"address\": \"1350 50th Street E\",\r\n            \"address2\": \"\",\r\n            \"city\": \"Inver Grove Heights\",\r\n            \"state\": \"MN\",\r\n            \"zip\": \"55011\",\r\n            \"lat\": 44.879314,\r\n            \"lng\": -93.077156,\r\n            \"hours\": \"Mon: 10-9; Tue: 10-9; Wed: 10-9; Thurs: 10-9; Fri: 10-9; Sat: 10-9; Sun: 10-8\",\r\n            \"services\": \r\n                {\r\n                    \"name\": \"Geek Squad Services\",\r\n                    \"storeservices\": {\r\n                        \"serviceId\": 1\r\n                    }\r\n                }\r\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/{{stores}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{stores}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify added store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/products/?storeID=1234",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "storeID",
+											"value": "1234"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete store",
+					"item": [
+						{
+							"name": "Delete store",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{stores}}/?storeID=8",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{stores}}",
+										""
+									],
+									"query": [
+										{
+											"key": "storeID",
+											"value": "8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get store",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{endPointStores}}/6",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{endPointStores}}",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
